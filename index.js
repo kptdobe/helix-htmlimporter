@@ -20,10 +20,18 @@ async function main() {
     // remove 'products in article'
     $('.article-body-products').remove();
     
+    const $main = $('.main-content');
     const $authorWrap = $('.article-author-wrap');
+    $main.append($authorWrap);
     $('<hr>').insertBefore($authorWrap);
     $('<hr>').insertAfter($authorWrap);
-    const content = $('.main-content').html();
+
+    const $footer = $('.article-footer');
+    $main.append($footer);
+    $('<hr>').insertAfter($footer);
+
+
+    const content = $main.html();
 
     unified()
         .use(parse, { emitParseErrors: true, duplicateAttribute: false })
