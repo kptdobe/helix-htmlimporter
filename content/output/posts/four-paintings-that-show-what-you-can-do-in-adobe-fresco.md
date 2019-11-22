@@ -2,7 +2,7 @@
 
 ### Now available for iPad
 
-![](./b3/image004.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/image004.jpg)
 
 Artwork created by Kyle Webster.
 
@@ -16,7 +16,7 @@ One of Fresco’s fundamental strengths is the variety of brushes you can use. I
 
 ## Oil brushes
 
-![](./b3/Oil-1.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/Oil-1.jpg)
 
 I made this painting using a technique called alla prima or wet-on-wet. As that second name implies, with alla prima you apply wet paint to still-wet layers of other paint. That allows the colors to mix and blend in really interesting ways and allows one color to seamlessly flow into another.
 
@@ -24,29 +24,29 @@ The scientists who worked on Fresco intensely studied the way oil paints act whe
 
 The opposite of alla prima is a technique called glazing, in which you put down a thin layer of oil paint, wait for it to dry, then put down a new thin layer. You use glazing if you don’t want the different colors of oil paint to blend, or you want to use the paint in a more transparent way. Fresco allows you to do glazing, but with some major improvements. You don’t have to wait for the first paint color to dry, you just add a new digital layer to your painting and go to work with the new color. And if you decide later you’d actually like to have the colors blend, you can merge the layers and, amazingly, the oils blend as if you’d just applied them.
 
-![](./b3/Oils_hand.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/Oils_hand.jpg)
 
 I wanted this ballerina to feel like she’s a part of the environment she’s in and not separate from it and Fresco’s capabilities helped me do that. After I’d painted the background and her body, I used a brush to lightly graze some of the pink color of the background over her hand. That technique, applied to her hand, her arm, her shoe, helps make it seem like she’s jumping out of the background, instead of dancing in front of it.
 
 The painting also shows the effects of depth and texture you can achieve with Fresco. If you brush lightly with a small amount of paint on your brush, the texture of the canvas will show through your paint, which you can see in the area of the ballerina’s hand.
 
-![](./b3/Oil_ridges.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/Oil_ridges.jpg)
 
 If you use lots of paint, you’ll see ridges and brush marks, like those above, that give the painting a natural sense of depth and dimension.
 
 ## Watercolor brushes
 
-![](./b3/watercolor_v2.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/watercolor_v2.jpg)
 
 Watercolors can be polarizing among artists. I love them because of the natural way paint blooms, spreading from where you apply it into neighboring parts of the paper. That can lead to beautiful effects and mixing of colors that you didn’t exactly intend, but that make a picture unique. But some artists find it very frustrating that watercolors seem to have a mind of their own.
 
 Fresco gives you the advantages of watercolors without the frustrations. The paints still bloom and mix as they do with real-life watercolors, but if you don’t like what that natural interaction produced, you can undo it or erase part of it. Want one section to stop bleeding into another? You can dry it with a tap. You can even draw a shape, paint within it and prevent the paint from spreading beyond the boundaries of that shape.
 
-![](./b3/watercolor_bloom.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/watercolor_bloom.jpg)
 
 You can see the blooming effect in the sky in this picture. After I painted the sky, I took a brush with no paint, only water, and painted areas on the right side of the painting. That pushed the pigment toward the dry part of the paper, producing that nebulous, light area of the sky that naturally blends into the darker portion.
 
-![](./b3/watercolor_hat.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/watercolor_hat.jpg)
 
 Another watercolor technique I love is called a variegated wash, in which you blend two colors together fluidly. You see it at work in the fisherman’s head where the color of the bottom of his hat melds into the shadow on his face and then gradually becomes the pink of his skin.
 
@@ -54,21 +54,21 @@ If you’ve tried watercolors in the past and found them frustrating, I urge you
 
 ## Photoshop brushes
 
-![](./b3/PS-brushes.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/PS-brushes.jpg)
 
 Fresco lets you use hundreds of thousands of brushes created with the Photoshop brush engine and that gives you amazing flexibility in what you create. Over the years, I’ve made thousands of Photoshop brushes – formerly available through KyleBrush.com and now available through Creative Cloud – so I know how versatile they are. Some Photoshop brushes, also known as pixel brushes, recreate simple tools like crayons or ink pens, others produce effects that would take hours to recreate by hand, like a brush that paints a string of foliage or that emulates the half-tone look of comics. Using pixel brushes, you can combine materials and techniques that wouldn’t go together with real-life materials.
 
-![](./b3/PS-brushes_dino.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/PS-brushes_dino.jpg)
 
 One example is the dinosaur rising out of the lake. I used a brush with acrylic paint for his gleaming outer edges, but to get that mottled skin I used a combination of pink, green and purple pastels. Mixing pastels and acrylics doesn’t always work as well on actual paper, but pixels don’t care – they’ll let you use any material that brings your painting to life.
 
-![](./b3/PS-brushes_sky.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/PS-brushes_sky.jpg)
 
 You can also use Photoshop layer blending modes in Fresco and they help you create subtle effects that are really hard to produce with natural materials. An example is this warm area of the sky. First I painted the blue sky. Then I added a layer and painted with a soft, round brush with yellow and orange together. I duplicated this warmer layer and set it to the overlay blend mode, which takes all the colors below and tints them with the colors above. I could have produced those kinds of subtle effects with natural materials, but it would have been a lot more work.
 
 ## Vector brushes
 
-![](./b3/vector.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/vector.jpg)
 
 There are a couple things I love about vector brushes, like the ones I used in this illustration.
 
@@ -88,7 +88,7 @@ I know that professional artists will find a lot to love in Fresco. But I’m ju
 
 * * *
 
-![](./b3/avatar_user_104435_1568653571-300x300.jpg)
+![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/avatar_user_104435_1568653571-300x300.jpg)
 
 by [Kyle Webster](https://theblog.adobe.com/author/kyle-webster/) POSTED ON 09-24-2019
 
@@ -96,7 +96,7 @@ by [Kyle Webster](https://theblog.adobe.com/author/kyle-webster/) POSTED ON 09-2
 
 Adobe Products in this article
 
-[![](./b3/Adobe_Fresco_logo_RGB.svg)](https://www.adobe.com/products/fresco.html)
+[![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/Adobe_Fresco_logo_RGB.svg)](https://www.adobe.com/products/fresco.html)
 
 * * *
 

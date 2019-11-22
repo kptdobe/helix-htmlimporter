@@ -2,11 +2,11 @@
 
 ### 
 
-![](./b2/Artboard-2-1800x0-c-default.png)
+![](how-to-build-a-best-of-breed-product-offering/Artboard-2-1800x0-c-default.png)
 
 How to Build a Best-Of-Breed Product Offering
 
-In today’s competitive and ever-evolving [ecommerce](https://magento.com/ "ecommerce") industry, it’s crucial for brands to offer unparalleled shopping experiences. And as customer expectations continue to rise, these online merchants face a wealth of challenges to keep up and stand out from the pack.
+In today’s competitive and ever-evolving [ecommerce](https://magento.com "ecommerce") industry, it’s crucial for brands to offer unparalleled shopping experiences. And as customer expectations continue to rise, these online merchants face a wealth of challenges to keep up and stand out from the pack.
 
 ## Keeping up with consumers
 
@@ -18,7 +18,7 @@ This shift in expectations and the new standards placed upon the retail industry
 
 ## Out with the old, in with the new
 
-In the early days of ecommerce, leading technology providers offered fully-managed, end-to-end [commerce](https://magento.com/ "commerce") capabilities. However, these predefined solutions lacked the agility and heightened experiences that fully-integrated, open-architecture models can offer.
+In the early days of ecommerce, leading technology providers offered fully-managed, end-to-end [commerce](https://magento.com "commerce") capabilities. However, these predefined solutions lacked the agility and heightened experiences that fully-integrated, open-architecture models can offer.
 
 #### Full-stack solutions are no longer the answer
 
@@ -52,7 +52,7 @@ The ecommerce industry has fundamentally shifted as consumer preferences and exp
 
 * * *
 
-![](./b2/avatar_user_113696_1574369087-300x300.jpg)
+![](how-to-build-a-best-of-breed-product-offering/avatar_user_113696_1574369087-300x300.jpg)
 
 by [James Gagliardi](https://theblog.adobe.com/author/james-gagliardi/) POSTED ON 11-21-2019
 
@@ -60,7 +60,7 @@ by [James Gagliardi](https://theblog.adobe.com/author/james-gagliardi/) POSTED O
 
 Adobe Products in this article
 
-[![](./b2/commercecloud_RGB.svg)](https://www.adobe.com/commerce/magento.html) [![](./b2/advertisingCloud.svg)](https://www.adobe.com/advertising-cloud.html) [![](./b2/analytics-cloud.svg)](https://www.adobe.com/data-analytics-cloud.html) [![](./b2/experience-manager.svg)](https://www.adobe.com/marketing/experience-manager.html)
+[![](how-to-build-a-best-of-breed-product-offering/commercecloud_RGB.svg)](https://www.adobe.com/commerce/magento.html) [![](how-to-build-a-best-of-breed-product-offering/advertisingCloud.svg)](https://www.adobe.com/advertising-cloud.html) [![](how-to-build-a-best-of-breed-product-offering/analytics-cloud.svg)](https://www.adobe.com/data-analytics-cloud.html) [![](how-to-build-a-best-of-breed-product-offering/experience-manager.svg)](https://www.adobe.com/marketing/experience-manager.html)
 
 * * *
 
