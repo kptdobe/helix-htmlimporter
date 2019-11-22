@@ -108,27 +108,54 @@ async function createPost(resource, content) {
         });
 }
 
+async function handleAuthor($) {
+    const postedBy = $('.author-link').text();
+    const postedOn = $('.post-date').text().toLowerCase();
+    
+    const $p = $('<p>');
+    $p.append(`by ${postedBy}<br>${postedOn}`);
+
+    return $p;
+}
+
+async function handleTopics($) {
+    let topics = '';
+    $('.article-footer-topics-wrap .text').each((i, t) => {
+        topics += `${t.innerHTML}, `;
+    });
+
+    topics = topics.slice(0, -2); 
+    
+    const $p = $('<p>');
+    $p.append(`Topics: ${topics}`);
+
+    return $p;
+}
+
 async function main() {
-    (await getBlogPages(URLS)).forEach((resource) => {
+    (await getBlogPages(URLS)).forEach(async (resource) => {
         const dom = new JSDOM(resource.text);
         const { document } = dom.window;
         const $ = jquery(document.defaultView);
         
+        const $main = $('.main-content');
+
+        const $newAuthorWrap = await handleAuthor($);
+        $main.append($newAuthorWrap);
+        $('<hr>').insertBefore($newAuthorWrap);
+
+        const $newTopicWrap = await handleTopics($);
+        $main.append($newTopicWrap);
+        $('<hr>').insertBefore($newTopicWrap);
+
+        // remove author / products section
+        $('.article-author-wrap').remove();
+        // remove footer
+        $('.article-footer').remove();
         // remove nav
         $('#article-nav-wrap').remove();
         // remove 'products in article'
         $('.article-body-products').remove();
-        
-        const $main = $('.main-content');
-        const $authorWrap = $('.article-author-wrap');
-        $main.append($authorWrap);
-        $('<hr>').insertBefore($authorWrap);
-        $('<hr>').insertAfter($authorWrap);
-
-        const $footer = $('.article-footer');
-        $main.append($footer);
-        $('<hr>').insertAfter($footer);
-
 
         const content = $main.html();
 

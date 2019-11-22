@@ -52,20 +52,9 @@ The ecommerce industry has fundamentally shifted as consumer preferences and exp
 
 * * *
 
-![](how-to-build-a-best-of-breed-product-offering/avatar_user_113696_1574369087-300x300.jpg)
-
-by [James Gagliardi](https://theblog.adobe.com/author/james-gagliardi/) POSTED ON 11-21-2019
-
-
-
-Adobe Products in this article
-
-[![](how-to-build-a-best-of-breed-product-offering/commercecloud_RGB.svg)](https://www.adobe.com/commerce/magento.html) [![](how-to-build-a-best-of-breed-product-offering/advertisingCloud.svg)](https://www.adobe.com/advertising-cloud.html) [![](how-to-build-a-best-of-breed-product-offering/analytics-cloud.svg)](https://www.adobe.com/data-analytics-cloud.html) [![](how-to-build-a-best-of-breed-product-offering/experience-manager.svg)](https://www.adobe.com/marketing/experience-manager.html)
+by James Gagliardi  
+posted on 11-21-2019
 
 * * *
 
-Topics in this article
-
-[Commerce ](https://theblog.adobe.com/customer-experience/commerce/) [Customer Experience ](https://theblog.adobe.com/customer-experience/)
-
-* * *
+Topics: Commerce, Customer Experience

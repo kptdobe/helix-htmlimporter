@@ -88,20 +88,9 @@ I know that professional artists will find a lot to love in Fresco. But I’m ju
 
 * * *
 
-![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/avatar_user_104435_1568653571-300x300.jpg)
-
-by [Kyle Webster](https://theblog.adobe.com/author/kyle-webster/) POSTED ON 09-24-2019
-
-
-
-Adobe Products in this article
-
-[![](four-paintings-that-show-what-you-can-do-in-adobe-fresco/Adobe_Fresco_logo_RGB.svg)](https://www.adobe.com/products/fresco.html)
+by Kyle Webster  
+posted on 09-24-2019
 
 * * *
 
-Topics in this article
-
-[Art ](https://theblog.adobe.com/creativity/art/) [Creativity ](https://theblog.adobe.com/creativity/) [News ](https://theblog.adobe.com/news/)
-
-* * *
+Topics: Art, Creativity, News

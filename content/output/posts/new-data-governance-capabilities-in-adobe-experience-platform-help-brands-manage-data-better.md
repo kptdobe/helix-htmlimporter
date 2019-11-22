@@ -38,20 +38,9 @@ _To learn more about other enhancements announced for Adobe Experience Platform,
 
 * * *
 
-![](new-data-governance-capabilities-in-adobe-experience-platform-help-brands-manage-data-better/avatar_user_112904_1573658506.jpeg)
-
-by [Arun Manoharan](https://theblog.adobe.com/author/arun-manoharan/) POSTED ON 11-14-2019
-
-
-
-Adobe Products in this article
-
-[![](new-data-governance-capabilities-in-adobe-experience-platform-help-brands-manage-data-better/experience_platform_withshadow_RGB.svg)](https://www.adobe.com/experience-platform.html)
+by Arun Manoharan  
+posted on 11-14-2019
 
 * * *
 
-Topics in this article
-
-[News ](https://theblog.adobe.com/news/)
-
-* * *
+Topics: News
