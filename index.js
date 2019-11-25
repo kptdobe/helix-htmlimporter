@@ -8,6 +8,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const scrape = require('website-scraper');
 const byTypeFilenameGenerator = require('website-scraper/lib/filename-generator/by-type');
+const SaveToExistingDirectoryPlugin = require('website-scraper-existing-directory');
 
 const { JSDOM } = jsdom;
 
@@ -22,8 +23,17 @@ const TYPE_TOPIC = 'topics';
 const URLS = [
     'https://theblog.adobe.com/new-data-governance-capabilities-in-adobe-experience-platform-help-brands-manage-data-better',
     'https://theblog.adobe.com/four-paintings-that-show-what-you-can-do-in-adobe-fresco',
-    'https://theblog.adobe.com/how-to-build-a-best-of-breed-product-offering'
+    'https://theblog.adobe.com/how-to-build-a-best-of-breed-product-offering',
+    'https://theblog.adobe.com/weve-achieved-global-gender-pay-parity-a-milestone-worth-celebrating/',
+    'https://theblog.adobe.com/leadership-lessons-from-the-u-s-womens-national-soccer-team/',
+    'https://theblog.adobe.com/adobe-breaks-ground-on-north-tower-in-san-jose/',
 ];
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
 
 async function getPages(urls, folder) {
 
@@ -75,7 +85,8 @@ async function getPages(urls, folder) {
                         return { filename };
                     });
                 }
-            })()
+            })(),
+            new SaveToExistingDirectoryPlugin()
         ]
     };
     
@@ -103,7 +114,7 @@ async function createMDFile(type, name, content, links) {
                     const folder = `${OUTPUT_PATH}/${type}/${name}`;
                     await fs.mkdirs(folder);
                     // copy resources (imgs...) folder
-                    links.forEach(async (l) => {
+                    asyncForEach(links, async (l) => {
                         const rName = path.parse(l.url).base;
                         // try to be smart, only copy images "referenced" in the content
                         if (file.contents.indexOf(rName) !== -1) {
@@ -133,9 +144,9 @@ async function handleAuthor($) {
     if (!await fs.exists(fullPath)) {
         // createMDFile(OUTPUT_AUTHORS, authorFilename, content, []);
         console.log(`${fullPath} does not exist. Retrieving it now.`);
-        (await getPages([authorLink], TYPE_AUTHOR)).forEach(async (resource) => {
-
-            const dom = new JSDOM(resource.text);
+        asyncForEach(await getPages([authorLink], TYPE_AUTHOR), async (resource) => {
+            const text = await fs.readFile(`${TMP_DOWNLOAD}/${TYPE_AUTHOR}/${resource.filename}`, 'utf8');
+            const dom = new JSDOM(text);
             const { document } = dom.window;
             const $ = jquery(document.defaultView);
             
@@ -179,8 +190,10 @@ async function main() {
     await fs.mkdirs(`${OUTPUT_PATH}/${TYPE_TOPIC}`);
     await fs.mkdirs(`${OUTPUT_PATH}/${TYPE_PRODUCT}`);
 
-    (await getPages(URLS, TYPE_POST)).forEach(async (resource) => {
-        const dom = new JSDOM(resource.text);
+    asyncForEach(await getPages(URLS, TYPE_POST), async (resource) => {
+        // encoding issue, do not use resource.text
+        const text = await fs.readFile(`${TMP_DOWNLOAD}/${TYPE_POST}/${resource.filename}`, 'utf8');
+        const dom = new JSDOM(text);
         const { document } = dom.window;
         const $ = jquery(document.defaultView);
         
