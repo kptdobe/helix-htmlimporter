@@ -21,6 +21,7 @@ const TYPE_PRODUCT = 'products';
 const TYPE_TOPIC = 'topics';
 
 const URLS = [
+    'https://theblog.adobe.com/conversion-success-events/',
     'https://theblog.adobe.com/new-data-governance-capabilities-in-adobe-experience-platform-help-brands-manage-data-better',
     'https://theblog.adobe.com/four-paintings-that-show-what-you-can-do-in-adobe-fresco',
     'https://theblog.adobe.com/how-to-build-a-best-of-breed-product-offering',
