@@ -100,9 +100,15 @@ async function createMDFile(type, name, content, links) {
                 console.log(`${name}.md post file created`);
 
                 if (links && links.length > 0) {
+                    const folder = `${OUTPUT_PATH}/${type}/${name}`;
+                    await fs.mkdirs(folder);
                     // copy resources (imgs...) folder
                     links.forEach(async (l) => {
-                        await fs.copy(`${l}`, `${OUTPUT_PATH}/${type}/${path.parse(l).name}`);
+                        const rName = path.parse(l.url).base;
+                        // try to be smart, only copy images "referenced" in the content
+                        if (file.contents.indexOf(rName) !== -1) {
+                            await fs.copy(`${TMP_DOWNLOAD}/${type}/${l.filename}`, `${folder}/${rName}`);
+                        }
                     });
                 }
             }
@@ -111,7 +117,7 @@ async function createMDFile(type, name, content, links) {
 
 async function createMDFromResource(type, resource, content) {
     const name = path.parse(resource.filename).name
-    await createMDFile(type, name, content, resource.children && resource.children.length > 0 ? [`${TMP_DOWNLOAD}/${type}/${name}`] : []);
+    await createMDFile(type, name, content, resource.children);
 }
 
 async function handleAuthor($) {
