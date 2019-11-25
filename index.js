@@ -14,10 +14,10 @@ const { JSDOM } = jsdom;
 const TMP_DOWNLOAD = 'content/tmp'
 const OUTPUT_PATH = 'content/output'
 
-const OUTPUT_AUTHORS = `${OUTPUT_PATH}/authors`;
-const OUTPUT_POSTS = `${OUTPUT_PATH}/posts`;
-const OUTPUT_PRODUCTS = `${OUTPUT_PATH}/products`;
-const OUTPUT_TOPICS = `${OUTPUT_PATH}/topics`;
+const TYPE_AUTHOR = 'authors';
+const TYPE_POST = 'posts';
+const TYPE_PRODUCT = 'products';
+const TYPE_TOPIC = 'topics';
 
 const URLS = [
     'https://theblog.adobe.com/new-data-governance-capabilities-in-adobe-experience-platform-help-brands-manage-data-better',
@@ -25,13 +25,11 @@ const URLS = [
     'https://theblog.adobe.com/how-to-build-a-best-of-breed-product-offering'
 ];
 
-async function getBlogPages(urls) {
-
-    await fs.remove(TMP_DOWNLOAD);
+async function getPages(urls, folder) {
 
     const options = {
         urls: urls,
-        directory: TMP_DOWNLOAD,
+        directory: `${TMP_DOWNLOAD}/${folder}`,
         recursive: false,
         urlFilter: function(url) {
             return url.indexOf('adobe') !== -1;
@@ -39,6 +37,8 @@ async function getBlogPages(urls) {
         sources: [
             // only keep the imgs
             { selector: 'img', attr: 'src' },
+            {selector: '[style]', attr: 'style'},
+		    {selector: 'style'},
         ],
         subdirectories: [
             { directory: 'img', extensions: ['.git', '.jpg', '.jpeg', '.png', '.svg'] },
@@ -46,24 +46,24 @@ async function getBlogPages(urls) {
         plugins: [
             new (class {
                 apply(registerAction) {
-                    let occupiedFilenames, subdirectories, defaultFilename;
+                    let occupiedFilenames, defaultFilename;
 
                     registerAction('beforeStart', ({options}) => {
                         occupiedFilenames = [];
-                        subdirectories = options.subdirectories;
                         defaultFilename = options.defaultFilename;
                     });
                     registerAction('generateFilename', async ({ resource }) => {
                         if ('index.html' === resource.filename) {
                             // replace index.html by last segment in path
-                            const u = resource.url.replace('/index.html','');
+                            // and remove last / if it is the last character
+                            const u = resource.url.replace('/index.html','').replace(/\/$/g,'');
                             const name = u.substring(u.lastIndexOf('/') + 1, u.length);
                             return { filename: `${name}.html` };
                         }
 
                         let directory = 'img';
                         if ( resource.parent ) {
-                            const u = resource.parent.url.replace('/index.html','');
+                            const u = resource.parent.url.replace('/index.html','').replace(/\/$/g,'');
                             directory = u.substring(u.lastIndexOf('/') + 1, u.length);
                         }
 
@@ -86,8 +86,8 @@ async function getBlogPages(urls) {
     return result;
 }
 
-async function createPost(resource, content) {
-    console.log('Creating a new post file');
+async function createMDFile(type, name, content, links) {
+    console.log(`Creating a new MD file: ${OUTPUT_PATH}/${type}/${name}.md`);
     unified()
         .use(parse, { emitParseErrors: true, duplicateAttribute: false })
         .use(rehype2remark)
@@ -96,24 +96,57 @@ async function createPost(resource, content) {
             if (err) {
                 console.error(err);
             } else {
-                const name = path.parse(resource.filename).name
-                await fs.writeFile(`${OUTPUT_POSTS}/${name}.md`, file.contents);
+                await fs.writeFile(`${OUTPUT_PATH}/${type}/${name}.md`, file.contents);
                 console.log(`${name}.md post file created`);
 
-                if (resource.children && resource.children.length > 0) {
+                if (links && links.length > 0) {
                     // copy resources (imgs...) folder
-                    await fs.copy(`${TMP_DOWNLOAD}/${name}`, `${OUTPUT_POSTS}/${name}`);
+                    links.forEach(async (l) => {
+                        await fs.copy(`${l}`, `${OUTPUT_PATH}/${type}/${path.parse(l).name}`);
+                    });
                 }
             }
         });
 }
 
+async function createMDFromResource(type, resource, content) {
+    const name = path.parse(resource.filename).name
+    await createMDFile(type, name, content, resource.children && resource.children.length > 0 ? [`${TMP_DOWNLOAD}/${type}/${name}`] : []);
+}
+
 async function handleAuthor($) {
     const postedBy = $('.author-link').text();
+    const authorLink = $('.author-link')[0].href;
     const postedOn = $('.post-date').text().toLowerCase();
     
     const $p = $('<p>');
     $p.append(`by ${postedBy}<br>${postedOn}`);
+
+    const authorFilename  = path.parse(authorLink).name;
+    const fullPath = `${OUTPUT_PATH}/${TYPE_AUTHOR}/${authorFilename}.md`;
+    if (!await fs.exists(fullPath)) {
+        // createMDFile(OUTPUT_AUTHORS, authorFilename, content, []);
+        console.log(`${fullPath} does not exist. Retrieving it now.`);
+        (await getPages([authorLink], TYPE_AUTHOR)).forEach(async (resource) => {
+
+            const dom = new JSDOM(resource.text);
+            const { document } = dom.window;
+            const $ = jquery(document.defaultView);
+            
+            const $main = $('.author-header');
+
+            // convert author-img from div to img for auto-processing
+            const $div = $('.author-header .author-img');
+            const urlstr = $div.css('background-image');
+            const url = /\(([^)]+)\)/.exec(urlstr)[1];
+            $main.prepend(`<img src="${url}">`);
+            $div.remove();
+
+            const content = $main.html();
+            await createMDFromResource(TYPE_AUTHOR, resource, content);
+        });
+
+    }
 
     return $p;
 }
@@ -133,7 +166,14 @@ async function handleTopics($) {
 }
 
 async function main() {
-    (await getBlogPages(URLS)).forEach(async (resource) => {
+    await fs.remove(TMP_DOWNLOAD);
+    await fs.remove(OUTPUT_PATH);
+    await fs.mkdirs(`${OUTPUT_PATH}/${TYPE_AUTHOR}`);
+    await fs.mkdirs(`${OUTPUT_PATH}/${TYPE_POST}`);
+    await fs.mkdirs(`${OUTPUT_PATH}/${TYPE_TOPIC}`);
+    await fs.mkdirs(`${OUTPUT_PATH}/${TYPE_PRODUCT}`);
+
+    (await getPages(URLS, TYPE_POST)).forEach(async (resource) => {
         const dom = new JSDOM(resource.text);
         const { document } = dom.window;
         const $ = jquery(document.defaultView);
@@ -159,7 +199,7 @@ async function main() {
 
         const content = $main.html();
 
-        createPost(resource, content);
+        createMDFromResource(TYPE_POST, resource, content);
     });
 }
 
