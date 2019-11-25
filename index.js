@@ -97,7 +97,7 @@ async function getPages(urls, folder) {
     return result;
 }
 
-async function createMDFile(type, name, content, links) {
+async function createMDFile(type, name, content, links = []) {
     console.log(`Creating a new MD file: ${OUTPUT_PATH}/${type}/${name}.md`);
     unified()
         .use(parse, { emitParseErrors: true, duplicateAttribute: false })
@@ -178,6 +178,13 @@ async function handleTopics($) {
     
     const $p = $('<p>');
     $p.append(`Topics: ${topics}`);
+
+    asyncForEach(topics.split(',').map((t) => t.trim()), async (t) => {
+        console.log('Found one topic',t);
+        await createMDFromResource(TYPE_TOPIC, {
+            filename: `${t.replace(/\s/g,'-').toLowerCase()}.md`,
+        }, `<h1>${t}</h1>`);
+    });
 
     return $p;
 }
