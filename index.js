@@ -28,6 +28,8 @@ const URLS = [
     'https://theblog.adobe.com/weve-achieved-global-gender-pay-parity-a-milestone-worth-celebrating/',
     'https://theblog.adobe.com/leadership-lessons-from-the-u-s-womens-national-soccer-team/',
     'https://theblog.adobe.com/adobe-breaks-ground-on-north-tower-in-san-jose/',
+    'https://theblog.adobe.com/recovering-reservations-from-visitors-who-abandon-the-hotel-reservation-process/',
+    'https://theblog.adobe.com/helping-travelers-find-personal-dream-vacations/',
 ];
 
 async function asyncForEach(array, callback) {
