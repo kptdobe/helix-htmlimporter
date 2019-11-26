@@ -91,38 +91,36 @@ async function getPages(urls, folder) {
         ]
     };
     
-    console.log('Starting to scrape urls');
+    console.log(`Starting to scrape urls ${urls.join(',')}`);
     const result = await scrape(options);
-    console.log(`Done with scraping. Downloaded ${result.length} pages.`);
+    console.log(`Done with scraping. Downloaded ${result.length} page(s).`);
 
     return result;
 }
 
 async function createMDFile(type, name, content, links = []) {
     console.log(`Creating a new MD file: ${OUTPUT_PATH}/${type}/${name}.md`);
-    unified()
+    await unified()
         .use(parse, { emitParseErrors: true, duplicateAttribute: false })
         .use(rehype2remark)
         .use(stringify)
-        .process(content, async function(err, file) {
-            if (err) {
-                console.error(err);
-            } else {
-                await fs.writeFile(`${OUTPUT_PATH}/${type}/${name}.md`, file.contents);
-                console.log(`${name}.md post file created`);
+        .process(content)
+        .then(async (file) => {
+            const p = `${OUTPUT_PATH}/${type}/${name}.md`;
+            await fs.writeFile(p, file.contents);
+            console.log(`MD file created: ${p}`);
 
-                if (links && links.length > 0) {
-                    const folder = `${OUTPUT_PATH}/${type}/${name}`;
-                    await fs.mkdirs(folder);
-                    // copy resources (imgs...) folder
-                    asyncForEach(links, async (l) => {
-                        const rName = path.parse(l.url).base;
-                        // try to be smart, only copy images "referenced" in the content
-                        if (file.contents.indexOf(rName) !== -1) {
-                            await fs.copy(`${TMP_DOWNLOAD}/${type}/${l.filename}`, `${folder}/${rName}`);
-                        }
-                    });
-                }
+            if (links && links.length > 0) {
+                const folder = `${OUTPUT_PATH}/${type}/${name}`;
+                await fs.mkdirs(folder);
+                // copy resources (imgs...) folder
+                await asyncForEach(links, async (l) => {
+                    const rName = path.parse(l.url).base;
+                    // try to be smart, only copy images "referenced" in the content
+                    if (l.saved && file.contents.indexOf(rName) !== -1) {
+                        await fs.copy(`${TMP_DOWNLOAD}/${type}/${l.filename}`, `${folder}/${rName}`);
+                    }
+                });
             }
         });
 }
@@ -144,8 +142,8 @@ async function handleAuthor($) {
     const fullPath = `${OUTPUT_PATH}/${TYPE_AUTHOR}/${authorFilename}.md`;
     if (!await fs.exists(fullPath)) {
         // createMDFile(OUTPUT_AUTHORS, authorFilename, content, []);
-        console.log(`${fullPath} does not exist. Retrieving it now.`);
-        asyncForEach(await getPages([authorLink], TYPE_AUTHOR), async (resource) => {
+        console.log(`File ${fullPath} does not exist. Retrieving it now.`);
+        await asyncForEach(await getPages([authorLink], TYPE_AUTHOR), async (resource) => {
             const text = await fs.readFile(`${TMP_DOWNLOAD}/${TYPE_AUTHOR}/${resource.filename}`, 'utf8');
             const dom = new JSDOM(text);
             const { document } = dom.window;
@@ -163,7 +161,8 @@ async function handleAuthor($) {
             const content = $main.html();
             await createMDFromResource(TYPE_AUTHOR, resource, content);
         });
-
+    } else {
+        console.log(`File ${fullPath} exists, no need to compute it again.`);
     }
 
     return $p;
@@ -180,12 +179,21 @@ async function handleTopics($) {
     const $p = $('<p>');
     $p.append(`Topics: ${topics}`);
 
-    asyncForEach(topics.split(',').map((t) => t.trim()), async (t) => {
-        console.log('Found one topic',t);
-        await createMDFromResource(TYPE_TOPIC, {
-            filename: `${t.replace(/\s/g,'-').toLowerCase()}.md`,
-        }, `<h1>${t}</h1>`);
-    });
+    await asyncForEach(
+        topics.split(',')
+            .filter(t => t && t.length > 0)
+            .map(t => t.trim()),
+        async (t) => {
+            const fullPath = `${OUTPUT_PATH}/${TYPE_TOPIC}/${t.replace(/\s/g,'-').toLowerCase()}.md`
+            if (!await fs.exists(fullPath)) {
+                console.log(`Found a new topic: ${t}`);
+                await createMDFromResource(TYPE_TOPIC, {
+                    filename: `${t.replace(/\s/g,'-').toLowerCase()}.md`,
+                }, `<h1>${t}</h1>`);
+            } else {
+                console.log(`Topic already exists: ${t}`);
+            }
+        });
 
     return $p;
 }
@@ -198,7 +206,7 @@ async function main() {
     await fs.mkdirs(`${OUTPUT_PATH}/${TYPE_TOPIC}`);
     await fs.mkdirs(`${OUTPUT_PATH}/${TYPE_PRODUCT}`);
 
-    asyncForEach(await getPages(URLS, TYPE_POST), async (resource) => {
+    await asyncForEach(await getPages(URLS, TYPE_POST), async (resource) => {
         // encoding issue, do not use resource.text
         const text = await fs.readFile(`${TMP_DOWNLOAD}/${TYPE_POST}/${resource.filename}`, 'utf8');
         const dom = new JSDOM(text);
@@ -226,8 +234,10 @@ async function main() {
 
         const content = $main.html();
 
-        createMDFromResource(TYPE_POST, resource, content);
+        await createMDFromResource(TYPE_POST, resource, content);
     });
+
+    console.log('Process done!');
 }
 
 main();
