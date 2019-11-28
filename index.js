@@ -30,6 +30,8 @@ const URLS = [
     'https://theblog.adobe.com/adobe-breaks-ground-on-north-tower-in-san-jose/',
     'https://theblog.adobe.com/recovering-reservations-from-visitors-who-abandon-the-hotel-reservation-process/',
     'https://theblog.adobe.com/helping-travelers-find-personal-dream-vacations/',
+    'https://theblog.adobe.com/creating-adobe-experience-platform-pipeline-with-kafka/',
+    'https://theblog.adobe.com/how-marketo-engage-helped-icf-align-sales-and-marketing/'
 ];
 
 async function asyncForEach(array, callback) {
@@ -39,7 +41,6 @@ async function asyncForEach(array, callback) {
 }
 
 async function getPages(urls, folder) {
-
     const options = {
         urls: urls,
         directory: `${TMP_DOWNLOAD}/${folder}`,
