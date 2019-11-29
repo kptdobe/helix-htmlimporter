@@ -38,3 +38,7 @@ posted on 10-22-2019
 * * *
 
 Topics: Customer Experience, Email Marketing
+
+* * *
+
+Products: Marketing Cloud, Marketo

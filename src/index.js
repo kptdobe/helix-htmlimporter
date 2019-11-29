@@ -8,11 +8,10 @@ const { getPages, createMarkdownFileFromResource } = require('./importer');
 
 const { JSDOM } = jsdom;
 
-const OUTPUT_PATH = 'content/output'
+const OUTPUT_PATH = 'content/output';
 
 const TYPE_AUTHOR = 'authors';
 const TYPE_POST = 'posts';
-const TYPE_PRODUCT = 'products';
 const TYPE_TOPIC = 'topics';
 
 const URLS = [
@@ -96,6 +95,24 @@ async function handleTopics($) {
     return $p;
 }
 
+async function handleProducts($) {
+    let products = '';
+    $('.sidebar-products-row .product-team-link').each((i, t) => {
+        let name = path.parse(t.href).name;
+        name = name.replace(/\-/g,' ').replace(/\b[a-z](?=[a-z]{2})/g, function(letter) {
+            return letter.toUpperCase();
+        });
+        products += `${name}, `;
+    });
+
+    products = products.slice(0, -2); 
+    
+    const $p = $('<p>');
+    $p.append(`Products: ${products}`);
+
+    return $p;
+}
+
 async function main() {
     await fs.remove(OUTPUT_PATH);
 
@@ -115,6 +132,10 @@ async function main() {
         const $newTopicWrap = await handleTopics($);
         $main.append($newTopicWrap);
         $('<hr>').insertBefore($newTopicWrap);
+
+        const $newProductsWrap = await handleProducts($);
+        $main.append($newProductsWrap);
+        $('<hr>').insertBefore($newProductsWrap);
 
         // remove author / products section
         $('.article-author-wrap').remove();

@@ -58,3 +58,7 @@ posted on 11-21-2019
 * * *
 
 Topics: Commerce, Customer Experience
+
+* * *
+
+Products: Magento, Advertising Cloud, Data Analytics Cloud, Experience Manager
