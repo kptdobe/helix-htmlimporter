@@ -1,7 +1,7 @@
 const unified = require("unified");
-const parse = require('rehype-parse')
-const rehype2remark = require('rehype-remark')
-const stringify = require('remark-stringify')
+const parse = require('rehype-parse');
+const rehype2remark = require('rehype-remark');
+const stringify = require('remark-stringify');
 const fs = require('fs-extra');
 const os = require('os');
 const path = require('path');
@@ -80,7 +80,7 @@ async function createMarkdownFile(directory, name, content, links = []) {
     await unified()
         .use(parse, { emitParseErrors: true, duplicateAttribute: false })
         .use(rehype2remark)
-        .use(stringify)
+        .use(stringify, { rule: '-', ruleSpaces: false })
         .process(content)
         .then(async (file) => {
             const p = `${directory}/${name}.md`;
