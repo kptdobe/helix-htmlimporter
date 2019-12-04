@@ -29,7 +29,8 @@ const URLS = [
 ];
 
 async function handleAuthor($) {
-    const postedBy = $('.author-link').text();
+    let postedBy = $('.author-link').text();
+    postedBy = postedBy.split(',')[0];
     const authorLink = $('.author-link')[0].href;
     const postedOn = $('.post-date').text().toLowerCase();
     
@@ -72,9 +73,6 @@ async function handleTopics($) {
     });
 
     topics = topics.slice(0, -2); 
-    
-    const $p = $('<p>');
-    $p.append(`Topics: ${topics}`);
 
     await asyncForEach(
         topics.split(',')
@@ -92,7 +90,7 @@ async function handleTopics($) {
             }
         });
 
-    return $p;
+    return topics;
 }
 
 async function handleProducts($) {
@@ -105,12 +103,7 @@ async function handleProducts($) {
         products += `${name}, `;
     });
 
-    products = products.slice(0, -2); 
-    
-    const $p = $('<p>');
-    $p.append(`Products: ${products}`);
-
-    return $p;
+    return products.slice(0, -2);
 }
 
 async function main() {
@@ -125,17 +118,27 @@ async function main() {
         
         const $main = $('.main-content');
 
+        // remove all hidden elements
+        $main.find('.hidden-md-down, .hidden-xs-down').remove();
+
+        // add a thematic break after first titles
+        $('<hr>').insertAfter($('.article-header'));
+
+        // add a thematic break after hero banner
+        const $heroHr = $('<hr>').insertAfter($('.article-hero'));
+
         const $newAuthorWrap = await handleAuthor($);
-        $main.append($newAuthorWrap);
-        $('<hr>').insertBefore($newAuthorWrap);
+        $newAuthorWrap.insertAfter($heroHr);
+        $('<hr>').insertAfter($newAuthorWrap);
 
-        const $newTopicWrap = await handleTopics($);
-        $main.append($newTopicWrap);
-        $('<hr>').insertBefore($newTopicWrap);
+        const topics = await handleTopics($);
+        const products = await handleProducts($);
 
-        const $newProductsWrap = await handleProducts($);
-        $main.append($newProductsWrap);
-        $('<hr>').insertBefore($newProductsWrap);
+        const $metaWrap = $('<p>');
+        $metaWrap.html(`Topics: ${topics}<br>Products: ${products}`);
+
+        $main.append($metaWrap);
+        $('<hr>').insertBefore($metaWrap);
 
         // remove author / products section
         $('.article-author-wrap').remove();
