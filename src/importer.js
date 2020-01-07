@@ -85,8 +85,7 @@ async function createMarkdownFile(directory, name, content, links = []) {
         .then(async (file) => {
             const p = `${directory}/${name}.md`;
             await fs.mkdirs(`${directory}`);
-            await fs.writeFile(p, file.contents);
-            console.log(`MD file created: ${p}`);
+            let contents = file.contents;
 
             if (links && links.length > 0) {
                 const folder = `${directory}/${name}`;
@@ -96,10 +95,16 @@ async function createMarkdownFile(directory, name, content, links = []) {
                     const rName = path.parse(l.url).base;
                     // try to be smart, only copy images "referenced" in the content
                     if (l.saved && file.contents.indexOf(rName) !== -1) {
-                        await fs.copy(`${l.localPath}`, `${folder}/${rName}`);
+                        // b64 inline images
+                        const bitmap = fs.readFileSync(l.localPath);
+                        const b64 = Buffer.from(bitmap).toString('base64');
+                        const ext = path.parse(rName).ext;
+                        contents = contents.replace(new RegExp(`${name}\/${rName.replace('.', '\\.')}`, 'g'), `data:image/${ext};base64,${b64}`);
                     }
                 });
             }
+            await fs.writeFile(p, contents);
+            console.log(`MD file created: ${p}`);
         });
 }
 
