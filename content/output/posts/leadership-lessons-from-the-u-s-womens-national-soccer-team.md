@@ -4,7 +4,7 @@
 
 ---
 
-![](leadership-lessons-from-the-u-s-womens-national-soccer-team/AdobeStock_1199494641-e1562939194859-1800x0-c-default.jpeg)
+![](https://hlx.blob.core.windows.net/external/c1cb58cf4d81a502b881744e212a89084c089807)
 
 ---
 

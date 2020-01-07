@@ -4,7 +4,7 @@
 
 ---
 
-![](how-marketo-engage-helped-icf-align-sales-and-marketing/AdobeStock_132655772-e1571067327505-1800x0-c-default.jpeg)
+![](https://hlx.blob.core.windows.net/external/6c783cbbcbcadf33533531394f44edd8c6f8a2b0)
 
 ---
 

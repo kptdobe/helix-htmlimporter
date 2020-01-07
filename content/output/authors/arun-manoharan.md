@@ -1,4 +1,4 @@
-![](arun-manoharan/avatar_user_112904_1573658506.jpeg)
+![](https://hlx.blob.core.windows.net/external/d2b39affb6dcf3ea1cea13ba13e9378c5aa1fdf9)
 
 ## Arun Manoharan
 

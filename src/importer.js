@@ -9,7 +9,17 @@ const scrape = require('website-scraper');
 const byTypeFilenameGenerator = require('website-scraper/lib/filename-generator/by-type');
 const SaveToExistingDirectoryPlugin = require('website-scraper-existing-directory');
 
+const BlogHandler = require('./BlogHandler');
 const { asyncForEach } = require('./utils');
+
+let blobHandler;
+
+if (process.env.AZURE_BLOB_SAS && process.env.AZURE_BLOB_URI) {
+    blobHandler = new BlogHandler({
+        azureBlobSAS: process.env.AZURE_BLOB_SAS,
+        azureBlobURI: process.env.AZURE_BLOB_URI,
+    });
+}
 
 async function getPages(urls) {
     const options = {
@@ -75,6 +85,15 @@ async function getPages(urls) {
     return result;
 };
 
+async function getBlobURI(handler, buffer, contentType) {
+    const blob = handler.createExternalResource(buffer, contentType);
+    const exists = await handler.checkBlobExists(blob);
+    if (!exists) {
+        await handler.upload(blob);
+    }
+    return blob;
+}
+
 async function createMarkdownFile(directory, name, content, links = []) {
     console.log(`Creating a new MD file: ${directory}/${name}.md`);
     await unified()
@@ -85,21 +104,38 @@ async function createMarkdownFile(directory, name, content, links = []) {
         .then(async (file) => {
             const p = `${directory}/${name}.md`;
             await fs.mkdirs(`${directory}`);
-            await fs.writeFile(p, file.contents);
-            console.log(`MD file created: ${p}`);
+            let contents = file.contents;
 
             if (links && links.length > 0) {
                 const folder = `${directory}/${name}`;
-                await fs.mkdirs(folder);
-                // copy resources (imgs...) folder
+
+                if (!blobHandler) {
+                    // will put images in a local sub folder
+                    await fs.mkdirs(folder);
+                }
+
+                // copy resources (imgs...) folder or to azure
                 await asyncForEach(links, async (l) => {
                     const rName = path.parse(l.url).base;
                     // try to be smart, only copy images "referenced" in the content
                     if (l.saved && file.contents.indexOf(rName) !== -1) {
-                        await fs.copy(`${l.localPath}`, `${folder}/${rName}`);
+
+                        if (blobHandler) {
+                            // if blob handler is defined, upload image and update reference
+                            const bitmap = fs.readFileSync(l.localPath);
+                            const ext = path.parse(rName).ext.replace('.', '');
+
+                            const externalResource = await getBlobURI(blobHandler, Buffer.from(bitmap), `image/${ext}`);
+                            contents = contents.replace(new RegExp(`${name}\/${rName.replace('.', '\\.')}`, 'g'), externalResource.uri);
+                        } else {
+                            // otherwise copy image in a local sub folder
+                            await fs.copy(`${l.localPath}`, `${folder}/${rName}`);
+                        }
                     }
                 });
             }
+            await fs.writeFile(p, contents);
+            console.log(`MD file created: ${p}`);
         });
 }
 

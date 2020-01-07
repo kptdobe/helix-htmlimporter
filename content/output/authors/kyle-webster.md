@@ -1,4 +1,4 @@
-![](kyle-webster/avatar_user_104435_1568653571-300x300.jpg)
+![](https://hlx.blob.core.windows.net/external/92aecb837186924ec18ac05f4ed604597717e90c)
 
 ## Kyle Webster
 

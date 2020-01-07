@@ -4,7 +4,7 @@
 
 ---
 
-![](new-data-governance-capabilities-in-adobe-experience-platform-help-brands-manage-data-better/AdobeStock_214539256-e1573665817960-1800x0-c-default.jpeg)
+![](https://hlx.blob.core.windows.net/external/496c9e8c7ff3f05ebfb633af637c4b37877b2a64)
 
 ---
 

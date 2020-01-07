@@ -1,4 +1,4 @@
-![](mark-boothe/avatar_user_10537_1522161253-300x300.jpeg)
+![](https://hlx.blob.core.windows.net/external/8ee9288cf0d77d1cd306bdac0f00c3faae2ac49e)
 
 ## Mark Boothe
 

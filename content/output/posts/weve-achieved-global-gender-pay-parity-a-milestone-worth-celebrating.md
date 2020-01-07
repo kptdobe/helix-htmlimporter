@@ -4,7 +4,7 @@
 
 ---
 
-![](weve-achieved-global-gender-pay-parity-a-milestone-worth-celebrating/15-DSC_0516-e1539987003257-1800x0-c-default.jpg)
+![](https://hlx.blob.core.windows.net/external/cfe366e9c11cb132cdb91ff31d588eb3616efa5d)
 
 ---
 

@@ -1,4 +1,4 @@
-![](donnamorris/avatar_user_10258_1549994383-300x300.jpg)
+![](https://hlx.blob.core.windows.net/external/e62735b1c83a09c3c298f1b0238731aa741dd421)
 
 ## Donna Morris, Chief Human Resources Officer & Executive Vice President, Employee Experience
 

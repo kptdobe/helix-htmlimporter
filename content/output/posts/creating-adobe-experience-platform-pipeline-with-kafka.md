@@ -4,7 +4,7 @@
 
 ---
 
-![](creating-adobe-experience-platform-pipeline-with-kafka/Blog-1920-x-1080-e1574389168935-1800x0-c-default.jpg)
+![](https://hlx.blob.core.windows.net/external/c57a4109065bbf081018a1074f85d8482dec0ef7)
 
 ---
 
@@ -57,9 +57,9 @@ Adhering to Adobe Experience Platform’s open and extensible architecture, we n
 
 As it turns out, meeting these requirements for billions of messages a day in a faulty environment is a complex problem. You have to think about different kinds of failures, buffering semantics, retry behavior. Consequently, we spend a lot of time optimizing this layer.
 
-![](creating-adobe-experience-platform-pipeline-with-kafka/image3.png)
+![](https://hlx.blob.core.windows.net/external/90f1a2bf252791dd4f64944b844c7ac937753733)
 
-![](creating-adobe-experience-platform-pipeline-with-kafka/image1.png)
+![](https://hlx.blob.core.windows.net/external/a6c085deda877402f84b570d2989865aeb0bc2b9)
 
 Adobe Experience Platform data connectivity architecture.
 
@@ -69,9 +69,9 @@ One of the biggest features of the Smart Edge service is its ability to route me
 
 We achieve routing by producing messages to appropriate topics that are mirrored across data centers. We use MirrorMaker to achieve this. As we add more data centers, the number of MirrorMaker clusters required for complete graph connectivity (in other words, every data center connecting directly with every other data center) grows exponentially. This, while neat, is not a scalable solution. Many companies that operate Kafka clusters at a large scale face this issue. One way of solving the problem is to introduce a “hop cluster” to route messages and reduce the number of directly connected data center nodes. Other options are using a different mirroring solution than MirrorMaker, such as Confluent Replicator.
 
-![](creating-adobe-experience-platform-pipeline-with-kafka/image2.png)
+![](https://hlx.blob.core.windows.net/external/831e688097b18ce342709c6892373d26bdc92518)
 
-![](creating-adobe-experience-platform-pipeline-with-kafka/image4.png)
+![](https://hlx.blob.core.windows.net/external/de9abce3081878a7e9648af57e284264167dc990)
 
 Adobe Experience Platform Pipeline intelligent routing.
 

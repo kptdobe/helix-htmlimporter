@@ -1,4 +1,4 @@
-![](james-gagliardi/avatar_user_113696_1574369087-300x300.jpg)
+![](https://hlx.blob.core.windows.net/external/f4ce7abeb82a9959c4cea9f7a64696c7ed59c204)
 
 ## James Gagliardi
 

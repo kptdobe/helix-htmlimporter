@@ -4,7 +4,7 @@
 
 ---
 
-![](how-to-build-a-best-of-breed-product-offering/Artboard-2-1800x0-c-default.png)
+![](https://hlx.blob.core.windows.net/external/9c04cf82a601a87661e6bb37fb974da1df8b755b)
 
 ---
 

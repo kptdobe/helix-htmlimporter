@@ -1,4 +1,4 @@
-![](jaemi-bremner/avatar_user_113623_1574197244-299x300.png)
+![](https://hlx.blob.core.windows.net/external/5b9117d37e7986f8c20219c3fcac0cfa75bd9aab)
 
 ## Jaemi Bremner
 

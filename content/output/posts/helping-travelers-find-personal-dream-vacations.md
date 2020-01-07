@@ -4,7 +4,7 @@
 
 ---
 
-![](helping-travelers-find-personal-dream-vacations/Image-Helping-each-traveler-find-a-personal-dream-vacation-e1481591290520-1800x0-c-default.jpeg)
+![](https://hlx.blob.core.windows.net/external/aa4972b6d15c4655be7c35a30665975517df01e5)
 
 ---
 

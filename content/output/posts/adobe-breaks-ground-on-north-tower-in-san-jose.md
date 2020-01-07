@@ -4,7 +4,7 @@
 
 ---
 
-![](adobe-breaks-ground-on-north-tower-in-san-jose/AdobeNorthTowerRendering_01a.jpg)
+![](https://hlx.blob.core.windows.net/external/3fb71a0461b3328dce41cb91ded21f019e1fd247)
 
 ---
 
@@ -23,7 +23,7 @@ We’ve come a long way since our founders John Warnock, and Chuck Geschke first
 
 Today, we are a Fortune 500 company with more than 21,000 employees in offices around the globe, and technology that has changed the face of business, creativity, and culture. Over the past few years, we’ve grown our sites in the U.S. and around the world, but it is our corporate location that has roots with the founding of Adobe.
 
-![Adobe executives and San Jose luminaries break ground on new building](adobe-breaks-ground-on-north-tower-in-san-jose/AdobeGroundBreaking_03a.jpg)
+![Adobe executives and San Jose luminaries break ground on new building](https://hlx.blob.core.windows.net/external/d03b3bffdac8ed501c1ce7fae07cdcddc244e8df)
 
 C.Fiorito/Compass Photographers
 
@@ -31,9 +31,9 @@ C.Fiorito/Compass Photographers
 
 Today we’re sharing new renderings of the North Tower—a building that will change the San Jose skyline. The North Tower will be connected to our existing campus by a pedestrian bridge extending over San Fernando Street. This bridge will be the first of its kind in downtown San Jose and will play an integral part in keeping our employees connected as we grow. We’ll also be including retail space in the North Tower.
 
-![Adobe North Tower, San Jose rendering](adobe-breaks-ground-on-north-tower-in-san-jose/AdobeNorthTowerRendering_02a.jpg)
+![Adobe North Tower, San Jose rendering](https://hlx.blob.core.windows.net/external/a4ec9970077e776e8bdea304bf067603563fe4db)
 
-![Adobe North Tower, San Jose rendering](adobe-breaks-ground-on-north-tower-in-san-jose/AdobeNorthTowerRendering_03a.jpg)
+![Adobe North Tower, San Jose rendering](https://hlx.blob.core.windows.net/external/af743176368e7fe692c67b58c3b90c6188574d0a)
 
 ## Commitment to the Community
 
