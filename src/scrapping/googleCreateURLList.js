@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const rp = require('request-promise-native');
 
+require('dotenv').config()
+
 const GOOGLE_API = 'https://www.googleapis.com/customsearch/v1';
 
 async function getPagedResult(start, lowRange) {

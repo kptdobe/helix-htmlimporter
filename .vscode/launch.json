@@ -13,12 +13,8 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/src/index.js",
-            "env": {
-                "AZURE_BLOB_URI": "",
-                "AZURE_BLOB_SAS": ""
-            },
             "args": [
-                "content/all.json"
+                "content/urls.json"
             ]
         },
         {
@@ -28,11 +24,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/scrapping/googleCreateURLList.js",
-            "env": {
-                "GOOGLE_API_KEY": "",
-                "GOOGLE_API_CX": ""
-            }
+            "program": "${workspaceFolder}/src/scrapping/googleCreateURLList.js"
         },
         {
             "type": "node",
@@ -54,7 +46,7 @@
             "cwd": "/Users/acapt/Adobe Systems Incorporated/The Blog - theblog/archive/posts/2019",
             "args": [
                 "ms/archive/posts/2019",
-                "/Users/acapt/work/dev/helix/playground/htmlimporter/params.json"
+                "/Users/acapt/work/dev/helix/playground/htmlimporter/content/indexing_params.json"
             ]
         },
 

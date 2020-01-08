@@ -3,6 +3,8 @@ const jsdom = require('jsdom');
 const fs = require('fs-extra');
 const path = require('path');
 
+require('dotenv').config()
+
 const { asyncForEach, asyncForKey } = require('./utils');
 const { getPages, createMarkdownFileFromResource } = require('./importer');
 
