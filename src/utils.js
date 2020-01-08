@@ -16,4 +16,10 @@ async function asyncForEach(array, callback) {
     }
 }
 
-module.exports = { asyncForEach };
+async function asyncForKey(object, callback) {
+    for (let key in object) {
+        await callback(key, object[key], object);
+    }
+}
+
+module.exports = { asyncForEach, asyncForKey };

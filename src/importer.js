@@ -94,7 +94,7 @@ async function getBlobURI(handler, buffer, contentType) {
     return blob;
 }
 
-async function createMarkdownFile(directory, name, content, links = []) {
+async function createMarkdownFile(directory, resourceName, name, content, links = []) {
     console.log(`Creating a new MD file: ${directory}/${name}.md`);
     await unified()
         .use(parse, { emitParseErrors: true, duplicateAttribute: false })
@@ -126,7 +126,7 @@ async function createMarkdownFile(directory, name, content, links = []) {
                             const ext = path.parse(rName).ext.replace('.', '');
 
                             const externalResource = await getBlobURI(blobHandler, Buffer.from(bitmap), `image/${ext}`);
-                            contents = contents.replace(new RegExp(`${name}\/${rName.replace('.', '\\.')}`, 'g'), externalResource.uri);
+                            contents = contents.replace(new RegExp(`${resourceName}\/${rName.replace('.', '\\.')}`, 'g'), externalResource.uri);
                         } else {
                             // otherwise copy image in a local sub folder
                             await fs.copy(`${l.localPath}`, `${folder}/${rName}`);
@@ -139,9 +139,9 @@ async function createMarkdownFile(directory, name, content, links = []) {
         });
 }
 
-async function createMarkdownFileFromResource(directory, resource, content) {
-    const name = path.parse(resource.filename).name
-    await createMarkdownFile(directory, name, content, resource.children);
+async function createMarkdownFileFromResource(directory, resource, content, customName) {
+    const name = customName || path.parse(resource.filename).name
+    await createMarkdownFile(directory, path.parse(resource.filename).name, name, content, resource.children);
 }
 
 module.exports = { getPages, createMarkdownFile, createMarkdownFileFromResource };

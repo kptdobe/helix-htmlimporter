@@ -100,20 +100,20 @@ class BlobHandler {
    */
   async checkBlobExists(blob) {
     try {
-      this._log.debug(`HEAD ${blob.uri}`);
+      // this._log.debug(`HEAD ${blob.uri}`);
       const ret = await rp({
         uri: blob.uri,
         method: 'HEAD',
         encoding: null,
         resolveWithFullResponse: true,
       });
-      this._log.debug({
-        statusCode: ret.statusCode,
-        headers: ret.headers,
-      });
+    //   this._log.debug({
+    //     statusCode: ret.statusCode,
+    //     headers: ret.headers,
+    //   });
       return true;
     } catch (e) {
-      this._log.info(`Blob ${blob.uri} does not exist: ${e.statusCode}`);
+      // this._log.info(`Blob ${blob.uri} does not exist: ${e.statusCode}`);
       return false;
     }
   }

@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.1",
+    "cheerio": "^1.0.0-rc.3",
     "crypto": "^1.0.1",
     "html-markdown": "^1.0.17",
     "jquery": "^3.4.1",
@@ -17,6 +19,7 @@
     "rehype-remark": "^7.0.0",
     "remark-stringify": "^7.0.4",
     "request-promise-native": "^1.0.8",
+    "shelljs": "^0.8.3",
     "to-vfile": "^6.0.0",
     "unified": "^8.4.2",
     "website-scraper": "^4.2.0",

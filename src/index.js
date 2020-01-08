@@ -3,7 +3,7 @@ const jsdom = require('jsdom');
 const fs = require('fs-extra');
 const path = require('path');
 
-const { asyncForEach } = require('./utils');
+const { asyncForEach, asyncForKey } = require('./utils');
 const { getPages, createMarkdownFileFromResource } = require('./importer');
 
 const { JSDOM } = jsdom;
@@ -14,30 +14,16 @@ const TYPE_AUTHOR = 'authors';
 const TYPE_POST = 'posts';
 const TYPE_TOPIC = 'topics';
 
-const URLS = [
-    'https://theblog.adobe.com/conversion-success-events/',
-    'https://theblog.adobe.com/new-data-governance-capabilities-in-adobe-experience-platform-help-brands-manage-data-better',
-    'https://theblog.adobe.com/four-paintings-that-show-what-you-can-do-in-adobe-fresco',
-    'https://theblog.adobe.com/how-to-build-a-best-of-breed-product-offering',
-    'https://theblog.adobe.com/weve-achieved-global-gender-pay-parity-a-milestone-worth-celebrating/',
-    'https://theblog.adobe.com/leadership-lessons-from-the-u-s-womens-national-soccer-team/',
-    'https://theblog.adobe.com/adobe-breaks-ground-on-north-tower-in-san-jose/',
-    'https://theblog.adobe.com/recovering-reservations-from-visitors-who-abandon-the-hotel-reservation-process/',
-    'https://theblog.adobe.com/helping-travelers-find-personal-dream-vacations/',
-    'https://theblog.adobe.com/creating-adobe-experience-platform-pipeline-with-kafka/',
-    'https://theblog.adobe.com/how-marketo-engage-helped-icf-align-sales-and-marketing/'
-];
-
 async function handleAuthor($) {
     let postedBy = $('.author-link').text();
-    postedBy = postedBy.split(',')[0];
+    postedBy = postedBy.split(',')[0].trim();
     const authorLink = $('.author-link')[0].href;
     const postedOn = $('.post-date').text().toLowerCase();
     
     const $p = $('<p>');
     $p.append(`by ${postedBy}<br>${postedOn}`);
 
-    const authorFilename  = path.parse(authorLink).name;
+    const authorFilename  = postedBy.toLowerCase().trim().replace(/\s/g,'-');
     const fullPath = `${OUTPUT_PATH}/${TYPE_AUTHOR}/${authorFilename}.md`;
     if (!await fs.exists(fullPath)) {
         console.log(`File ${fullPath} does not exist. Retrieving it now.`);
@@ -57,7 +43,7 @@ async function handleAuthor($) {
             $div.remove();
 
             const content = $main.html();
-            await createMarkdownFileFromResource(`${OUTPUT_PATH}/${TYPE_AUTHOR}`, resource, content);
+            await createMarkdownFileFromResource(`${OUTPUT_PATH}/${TYPE_AUTHOR}`, resource, content, authorFilename);
         });
     } else {
         console.log(`File ${fullPath} exists, no need to compute it again.`);
@@ -109,49 +95,63 @@ async function handleProducts($) {
 async function main() {
     await fs.remove(OUTPUT_PATH);
 
-    await asyncForEach(await getPages(URLS), async (resource) => {
-        // encoding issue, do not use resource.text
-        const text = await fs.readFile(`${resource.localPath}`, 'utf8');
-        const dom = new JSDOM(text);
-        const { document } = dom.window;
-        const $ = jquery(document.defaultView);
-        
-        const $main = $('.main-content');
+    const URLS_JSON_FILE = process.argv[2];
 
-        // remove all hidden elements
-        $main.find('.hidden-md-down, .hidden-xs-down').remove();
+    await asyncForKey(urls, async (year) => {
+        const us = urls[year].filter((u) => !oldurls[year] || oldurls[year].indexOf(u) === -1);
+        await asyncForEach(await getPages(us), async (resource) => {
+            // encoding issue, do not use resource.text
+            const text = await fs.readFile(`${resource.localPath}`, 'utf8');
+            const dom = new JSDOM(text);
+            const { document } = dom.window;
+            const $ = jquery(document.defaultView);
+            
+            const $main = $('.main-content');
 
-        // add a thematic break after first titles
-        $('<hr>').insertAfter($('.article-header'));
+            // remove all hidden elements
+            $main.find('.hidden-md-down, .hidden-xs-down').remove();
 
-        // add a thematic break after hero banner
-        const $heroHr = $('<hr>').insertAfter($('.article-hero'));
+            // add a thematic break after first titles
+            $('<hr>').insertAfter($('.article-header'));
 
-        const $newAuthorWrap = await handleAuthor($);
-        $newAuthorWrap.insertAfter($heroHr);
-        $('<hr>').insertAfter($newAuthorWrap);
+            // add a thematic break after hero banner
+            const $heroHr = $('<hr>').insertAfter($('.article-hero'));
 
-        const topics = await handleTopics($);
-        const products = await handleProducts($);
+            const $newAuthorWrap = await handleAuthor($);
+            $newAuthorWrap.insertAfter($heroHr);
+            $('<hr>').insertAfter($newAuthorWrap);
 
-        const $metaWrap = $('<p>');
-        $metaWrap.html(`Topics: ${topics}<br>Products: ${products}`);
+            const topics = await handleTopics($);
+            const products = await handleProducts($);
 
-        $main.append($metaWrap);
-        $('<hr>').insertBefore($metaWrap);
+            const $metaWrap = $('<p>');
+            $metaWrap.html(`Topics: ${topics}<br>Products: ${products}`);
 
-        // remove author / products section
-        $('.article-author-wrap').remove();
-        // remove footer
-        $('.article-footer').remove();
-        // remove nav
-        $('#article-nav-wrap').remove();
-        // remove 'products in article'
-        $('.article-body-products').remove();
+            $main.append($metaWrap);
+            $('<hr>').insertBefore($metaWrap);
 
-        const content = $main.html();
+            const headers = $('.article-header');
+            if (headers.length === 0) {
+                // posts with headers after image
+                const $articleRow = $('.article-title-row');
+                $('.article-content').prepend($articleRow);
+                $('<hr>').insertAfter($articleRow);
+            }
+            $('.article-collection-header').remove();
 
-        await createMarkdownFileFromResource(`${OUTPUT_PATH}/${TYPE_POST}`, resource, content);
+            // remove author / products section
+            $('.article-author-wrap').remove();
+            // remove footer
+            $('.article-footer').remove();
+            // remove nav
+            $('#article-nav-wrap').remove();
+            // remove 'products in article'
+            $('.article-body-products').remove();
+
+            const content = $main.html();
+
+            await createMarkdownFileFromResource(`${OUTPUT_PATH}/${TYPE_POST}/${year}`, resource, content);
+        });
     });
 
     console.log('Process done!');

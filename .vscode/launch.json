@@ -4,14 +4,59 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch",
+            "name": "Importer",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/index.js"
-        }
+            "program": "${workspaceFolder}/src/index.js",
+            "env": {
+                "AZURE_BLOB_URI": "",
+                "AZURE_BLOB_SAS": ""
+            },
+            "args": [
+                "content/all.json"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Scrap urls (Google)",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/scrapping/googleCreateURLList.js",
+            "env": {
+                "GOOGLE_API_KEY": "",
+                "GOOGLE_API_CX": ""
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Scrap urls (Scrapper)",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/scrapping/scrapCreateURLList.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Patch config",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/indexing/patchConfig.js",
+            "cwd": "/Users/acapt/Adobe Systems Incorporated/The Blog - theblog/archive/posts/2019",
+            "args": [
+                "ms/archive/posts/2019",
+                "/Users/acapt/work/dev/helix/playground/htmlimporter/params.json"
+            ]
+        },
+
     ]
 }

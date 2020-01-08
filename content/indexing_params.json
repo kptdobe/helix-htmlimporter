@@ -1,0 +1,10 @@
+{
+    "owner": "davidnuescheler",
+    "repo": "theblog",
+    "ref": "master",
+    "branch": "master",
+    "paths": [],
+    "namespace": "helix-index",
+    "package": "index-pipelines",
+    "sha": "initial"
+}
