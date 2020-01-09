@@ -6,6 +6,8 @@ const { asyncForEach } = require('../utils');
 
 require('dotenv').config();
 
+let sleep = require('util').promisify(setTimeout);
+
 const ow = openwhisk({
     apihost: process.env.__OW_API_HOST,
     api_key: process.env.__OW_API_KEY,
@@ -30,6 +32,7 @@ async function main() {
     do {
         let spliced = paths.splice(0, 20);
         try {
+            console.log(`Triggering indexing for a batch of ${spliced.length} url(s).`);
             const result = await ow.actions.invoke({
                 name: '/helix-index/helix-services/index-files@latest',
                 blocking: true,
@@ -53,10 +56,17 @@ async function main() {
                     console.log(`Indexing failed for ${e.path}: ${e.reason}`);
                 });
             }
+
+            if (paths.length > 0) {
+                const seconds = 45;
+                console.log(`Sleeping ${seconds}s...`);
+                await sleep(seconds * 1000);
+            }
         } catch(error) {
-            console.log(`Indexing failed for ${spliced}`, error);
+            console.log(`Indexing request failed for ${spliced}`, error);
         }
     } while(paths.length > 0);
+    console.log(`Indexing is over.`);
 }
 
 main();
