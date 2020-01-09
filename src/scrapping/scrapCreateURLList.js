@@ -52,7 +52,7 @@ async function main() {
         scrapped = scrapped.concat(urls[y]);
     }
 
-    await scrap('https://theblog.adobe.com/how-a-scrappy-startup-mentality-helped-this-big-tech-company-focus-on-its-customers/', urls);
+    await scrap('https://theblog.adobe.com/', urls);
     await fs.writeJson(URLS_JSON_FILE, urls);
 }
 

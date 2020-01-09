@@ -33,7 +33,10 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/scrapping/scrapCreateURLList.js"
+            "program": "${workspaceFolder}/src/scrapping/scrapCreateURLList.js",
+            "args": [
+                "content/urls.json"
+            ]
         },
         {
             "type": "node",
