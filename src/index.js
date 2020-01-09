@@ -22,8 +22,9 @@ async function handleAuthor($) {
     const authorLink = $('.author-link')[0].href;
     const postedOn = $('.post-date').text().toLowerCase();
     
-    const $p = $('<p>');
-    $p.append(`by ${postedBy}<br>${postedOn}`);
+    const nodes = [];
+    nodes.push($('<p>').append(`by ${postedBy}`));
+    nodes.push($('<p>').append(postedOn));
 
     const authorFilename  = postedBy.toLowerCase().trim().replace(/\s/g,'-');
     const fullPath = `${OUTPUT_PATH}/${TYPE_AUTHOR}/${authorFilename}.md`;
@@ -51,7 +52,7 @@ async function handleAuthor($) {
         console.log(`File ${fullPath} exists, no need to compute it again.`);
     }
 
-    return $p;
+    return nodes;
 }
 
 async function handleTopics($) {
@@ -98,6 +99,12 @@ async function main() {
     await fs.remove(OUTPUT_PATH);
 
     const URLS_JSON_FILE = process.argv[2];
+    const OLD_URLS_JSON_FILE = process.argv[3];
+    const urls = await fs.readJson(URLS_JSON_FILE);
+    let oldurls = {};
+    if (OLD_URLS_JSON_FILE) {
+        oldurls = await fs.readJson(OLD_URLS_JSON_FILE);
+    }
 
     await asyncForKey(urls, async (year) => {
         const us = urls[year].filter((u) => !oldurls[year] || oldurls[year].indexOf(u) === -1);
@@ -119,10 +126,14 @@ async function main() {
             // add a thematic break after hero banner
             const $heroHr = $('<hr>').insertAfter($('.article-hero'));
 
-            const $newAuthorWrap = await handleAuthor($);
-            $newAuthorWrap.insertAfter($heroHr);
-            $('<hr>').insertAfter($newAuthorWrap);
-
+            $('<hr>').insertAfter($heroHr);
+            const nodes = await handleAuthor($);
+            let previous = $heroHr;
+            nodes.forEach((n) => {
+                n.insertAfter(previous);
+                previous = n;
+            });
+            
             const topics = await handleTopics($);
             const products = await handleProducts($);
 

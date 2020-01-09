@@ -45,8 +45,7 @@ async function scrap(url, json) {
 }
 
 async function main() {
-    const URLS_JSON_FILE = 'content/urls-scrap.json';
-
+    const URLS_JSON_FILE = process.argv[2];
     const urls = await fs.readJson(URLS_JSON_FILE);
 
     for(let y in urls) {
