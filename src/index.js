@@ -137,11 +137,14 @@ async function main() {
             const topics = await handleTopics($);
             const products = await handleProducts($);
 
-            const $metaWrap = $('<p>');
-            $metaWrap.html(`Topics: ${topics}<br>Products: ${products}`);
+            const $topicsWrap = $('<p>');
+            $topicsWrap.html(`Topics: ${topics}`);
+            const $productsWrap = $('<p>');
+            $productsWrap.html(`Products: ${products}`);
 
-            $main.append($metaWrap);
-            $('<hr>').insertBefore($metaWrap);
+            $main.append($topicsWrap);
+            $main.append($productsWrap);
+            $('<hr>').insertBefore($topicsWrap);
 
             const headers = $('.article-header');
             if (headers.length === 0) {
