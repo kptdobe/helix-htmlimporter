@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "type": "node",
             "request": "launch",
@@ -50,6 +51,19 @@
             "args": [
                 "ms/archive/posts/2019",
                 "/Users/acapt/work/dev/helix/playground/htmlimporter/content/indexing_params.json"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run indexing",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/indexing/runIndex.js",
+            "args": [
+                "/Users/acapt/Adobe Systems Incorporated/The Blog - theblog/archive/posts/2018",
+                "ms/archive/posts/2018",
             ]
         },
 

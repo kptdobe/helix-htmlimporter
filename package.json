@@ -16,6 +16,7 @@
     "html-markdown": "^1.0.17",
     "jquery": "^3.4.1",
     "jsdom": "^15.2.1",
+    "openwhisk": "^3.20.0",
     "rehype-parse": "^6.0.2",
     "rehype-remark": "^7.0.0",
     "remark-stringify": "^7.0.4",
