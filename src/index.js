@@ -15,6 +15,7 @@ const OUTPUT_PATH = 'content/output';
 const TYPE_AUTHOR = 'authors';
 const TYPE_POST = 'posts';
 const TYPE_TOPIC = 'topics';
+const TYPE_PRODUCT = 'products';
 
 async function handleAuthor($) {
     let postedBy = $('.author-link').text();
@@ -82,17 +83,49 @@ async function handleTopics($) {
     return topics;
 }
 
-async function handleProducts($) {
-    let products = '';
-    $('.sidebar-products-row .product-team-link').each((i, t) => {
-        let name = path.parse(t.href).name;
+async function handleProducts($, localPath, resourceName) {
+    let output = '';
+    const products = [];
+    $('.sidebar-products-row .product-team-link').each((i, p) => {
+        const $p = $(p);
+        let name = path.parse(p.href).name;
         name = name.replace(/\-/g,' ').replace(/\b[a-z](?=[a-z]{2})/g, function(letter) {
             return letter.toUpperCase();
         });
-        products += `${name}, `;
+        const src = $p.find('img').attr('src');
+        const fileName = name.replace(/\s/g,'-').toLowerCase();
+        products.push({
+            name,
+            fileName,
+            href: p.href,
+            imgSrc: `${fileName}/${path.parse(src).base}`,
+            imgLocalPath: `${localPath}/${src}`
+        })
+        output += `${name}, `;
     });
 
-    return products.slice(0, -2);
+    output = output.slice(0, -2);
+
+    await asyncForEach(
+        products,
+        async (p) => {
+            const fullPath = `${OUTPUT_PATH}/${TYPE_PRODUCT}/${p.fileName}.md`
+            if (!await fs.exists(fullPath)) {
+                console.log(`Found a new product: ${p.name}`);
+                await createMarkdownFileFromResource(`${OUTPUT_PATH}/${TYPE_PRODUCT}`, {
+                    filename: `${p.fileName}.md`,
+                    children: [{
+                        saved: true,
+                        url: p.imgSrc,
+                        localPath: p.imgLocalPath
+                    }]
+                }, `<h1>${p.name}</h1><a href='${p.href}'><img src='${p.imgSrc}'></a>`);
+            } else {
+                console.log(`Product already exists: ${p.name}`);
+            }
+        });
+
+    return output;
 }
 
 async function main() {
@@ -135,7 +168,7 @@ async function main() {
             });
             
             const topics = await handleTopics($);
-            const products = await handleProducts($);
+            const products = await handleProducts($, path.parse(resource.localPath).dir, path.parse(resource.localPath).name);
 
             const $topicsWrap = $('<p>');
             $topicsWrap.html(`Topics: ${topics}`);

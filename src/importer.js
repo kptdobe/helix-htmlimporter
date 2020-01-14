@@ -3,6 +3,7 @@ const parse = require('rehype-parse');
 const rehype2remark = require('rehype-remark');
 const stringify = require('remark-stringify');
 const fs = require('fs-extra');
+const mime = require('mime-types');
 const os = require('os');
 const path = require('path');
 const scrape = require('website-scraper');
@@ -125,7 +126,7 @@ async function createMarkdownFile(directory, resourceName, name, content, links 
                             const bitmap = fs.readFileSync(l.localPath);
                             const ext = path.parse(rName).ext.replace('.', '');
 
-                            const externalResource = await getBlobURI(blobHandler, Buffer.from(bitmap), `image/${ext}`);
+                            const externalResource = await getBlobURI(blobHandler, Buffer.from(bitmap), mime.lookup(ext));
                             contents = contents.replace(new RegExp(`${resourceName}\/${rName.replace('.', '\\.')}`, 'g'), externalResource.uri);
                         } else {
                             // otherwise copy image in a local sub folder
