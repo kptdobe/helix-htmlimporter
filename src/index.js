@@ -89,10 +89,18 @@ async function handleProducts($, localPath, resourceName) {
     $('.sidebar-products-row .product-team-link').each((i, p) => {
         const $p = $(p);
         let name = path.parse(p.href).name;
+
+        const src = $p.find('img').attr('src');
+
+        // edge case, some link redirect to homepage, try to get product from image src
+        if (name === 'en') {
+            name = path.parse(src).name;
+        }
+
         name = name.replace(/\-/g,' ').replace(/\b[a-z](?=[a-z]{2})/g, function(letter) {
             return letter.toUpperCase();
         });
-        const src = $p.find('img').attr('src');
+        
         const fileName = name.replace(/\s/g,'-').toLowerCase();
         products.push({
             name,
