@@ -4,8 +4,6 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-
         {
             "type": "node",
             "request": "launch",
@@ -62,10 +60,22 @@
             ],
             "program": "${workspaceFolder}/src/indexing/runIndex.js",
             "args": [
-                "/Users/acapt/Adobe Systems Incorporated/The Blog - theblog/archive/posts/2018",
-                "ms/archive/posts/2018",
+                "/Users/acapt/Adobe Systems Incorporated/The Blog - theblog/archive/posts/2020",
+                "ms/archive/posts/2020",
             ]
         },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Upload asset",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/blob/upload.js",
+            "args": [
+                "",
+            ]
+        }
 
     ]
 }
