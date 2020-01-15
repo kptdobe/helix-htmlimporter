@@ -73,7 +73,7 @@ async function handleTopics($) {
             if (!await fs.exists(fullPath)) {
                 console.log(`Found a new topic: ${t}`);
                 await createMarkdownFileFromResource(`${OUTPUT_PATH}/${TYPE_TOPIC}`, {
-                    filename: `${t.replace(/\s/g,'-').toLowerCase()}.md`,
+                    filename: `${t.replace(/\s/gm,'-').replace(/\&amp;/gm,'').toLowerCase()}.md`,
                 }, `<h1>${t}</h1>`);
             } else {
                 console.log(`Topic already exists: ${t}`);
