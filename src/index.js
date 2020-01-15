@@ -150,6 +150,9 @@ async function main() {
             
             const $main = $('.main-content');
 
+            // remove all existing hr to avoid section collisions
+            $main.find('hr').remove();
+
             // remove all hidden elements
             $main.find('.hidden-md-down, .hidden-xs-down').remove();
 
