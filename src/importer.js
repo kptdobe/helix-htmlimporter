@@ -100,7 +100,15 @@ async function createMarkdownFile(directory, resourceName, name, content, links 
     await unified()
         .use(parse, { emitParseErrors: true, duplicateAttribute: false })
         .use(rehype2remark)
-        .use(stringify, { rule: '-', ruleSpaces: false })
+        .use(stringify, {
+            bullet: '-',
+            fence: '`',
+            fences: true,
+            incrementListMarker: true,
+            rule: '-',
+            ruleRepetition: 3,
+            ruleSpaces: false,
+        })
         .process(content)
         .then(async (file) => {
             const p = `${directory}/${name}.md`;
