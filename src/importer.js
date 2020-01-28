@@ -118,8 +118,9 @@ async function createMarkdownFile(directory, resourceName, name, content, links 
                 // copy resources (imgs...) folder or to azure
                 await asyncForEach(links, async (l) => {
                     const rName = path.parse(l.url).base;
+                    const filteredRName = rName.replace('@', '%40');
                     // try to be smart, only copy images "referenced" in the content
-                    if (l.saved && file.contents.indexOf(rName) !== -1) {
+                    if (l.saved && file.contents.indexOf(filteredRName) !== -1) {
 
                         if (blobHandler) {
                             // if blob handler is defined, upload image and update reference
@@ -127,7 +128,7 @@ async function createMarkdownFile(directory, resourceName, name, content, links 
                             const ext = path.parse(rName).ext.replace('.', '');
 
                             const externalResource = await getBlobURI(blobHandler, Buffer.from(bitmap), mime.lookup(ext));
-                            contents = contents.replace(new RegExp(`${resourceName}\/${rName.replace('.', '\\.')}`, 'g'), externalResource.uri);
+                            contents = contents.replace(new RegExp(`${resourceName}\/${filteredRName.replace('.', '\\.')}`, 'g'), externalResource.uri);
                         } else {
                             // otherwise copy image in a local sub folder
                             await fs.copy(`${l.localPath}`, `${folder}/${rName}`);
