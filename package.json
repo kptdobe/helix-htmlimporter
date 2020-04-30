@@ -14,7 +14,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "html-markdown": "^1.0.17",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsdom": "^15.2.1",
     "mime-types": "^2.1.26",
     "openwhisk": "^3.20.0",
