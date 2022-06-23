@@ -15,7 +15,7 @@
     "dotenv": "^8.2.0",
     "html-markdown": "^1.0.17",
     "jquery": "^3.4.1",
-    "jsdom": "^15.2.1",
+    "jsdom": "^16.5.0",
     "mime-types": "^2.1.26",
     "openwhisk": "^3.20.0",
     "rehype-parse": "^6.0.2",
